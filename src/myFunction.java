@@ -21,5 +21,6 @@ public class myFunction {
             System.out.print(value.charAt(i));
         }
         System.out.println(">");
+
     }
 }
