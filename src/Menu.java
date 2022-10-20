@@ -21,13 +21,12 @@ public class Menu {
                     if (f.size() == 0) {
                         System.out.println("当前没有集合");
                     } else {
-                        System.out.println("1");
+                        System.out.println("当前集合数: "+f.size());
                         f.get(0).outTheSet();
                     }
                     break;
                 }
                 case 2: {
-                    System.out.println("2");
                     myFunction collection = new myFunction();
                     f.add(collection);
                     break;
@@ -41,6 +40,7 @@ public class Menu {
                 }
             }
             try {
+                System.out.println("---------");
                 System.out.println("按回车继续");
                 new BufferedReader(new InputStreamReader(System.in)).readLine();
             } catch (IOException e) {
