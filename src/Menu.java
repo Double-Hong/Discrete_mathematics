@@ -66,5 +66,4 @@ public class Menu {
             System.out.println("集合名已重复 ! !");
         }
     }
-
 }
