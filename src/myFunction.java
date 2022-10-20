@@ -8,11 +8,10 @@ public class myFunction {
     public myFunction() {
         System.out.println("输入规则:");
         System.out.println("集合:直接输入元素,每个元素用','隔开");
-        System.out.println("输入集合名:");
+        System.out.println("输入集合名:(集合名需唯一)");
         name = in.next();
         System.out.println("输入集合:");
         value = in.next();
-        System.out.println("创建成功 !");
     }
 
     //输出集合

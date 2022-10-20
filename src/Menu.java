@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
@@ -27,8 +28,8 @@ public class Menu {
                     break;
                 }
                 case 2: {
-                    myFunction collection = new myFunction();
-                    f.add(collection);
+                    myFunction newf = new myFunction();
+                    checkSameName(newf);
                     break;
                 }
                 case 3: {
@@ -49,4 +50,21 @@ public class Menu {
         }
 
     }
+    public void checkSameName(myFunction newf){//检查集合名是否相同
+        boolean flag=true;
+        for (int i=0;i<f.size();i++){
+            if (Objects.equals(f.get(i).name, newf.name)){
+                flag=false;
+            }
+        }
+        if (flag)
+        {
+            f.add(newf);
+            System.out.println("创建成功 !");
+        }
+        else {
+            System.out.println("集合名已重复 ! !");
+        }
+    }
+
 }
