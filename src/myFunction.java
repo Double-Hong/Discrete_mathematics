@@ -20,6 +20,7 @@ public class myFunction {
         for (int i=0;i<value.length();i++){
             System.out.print(value.charAt(i));
         }
+
         System.out.println(">");
     }
 }
