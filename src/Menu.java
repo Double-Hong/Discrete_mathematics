@@ -7,8 +7,13 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner in = new Scanner(System.in);
-    ArrayList<mySet> f = new ArrayList<>();
+    ArrayList<mySet> s = new ArrayList<>();
     int number = 0;
+
+    public Menu() {
+        mySet firstSet = new mySet("A");
+        s.add(firstSet);
+    }
 
     public void showMenu() {
         while (true) {
@@ -19,12 +24,7 @@ public class Menu {
             int select = in.nextInt();
             switch (select) {
                 case 1: {
-                    if (f.size() == 0) {
-                        System.out.println("当前没有集合");
-                    } else {
-                        System.out.println("当前集合数: "+f.size());
-                        f.get(0).outTheSet();
-                    }
+                    showAllSet();
                     break;
                 }
                 case 2: {
@@ -33,7 +33,7 @@ public class Menu {
                     break;
                 }
                 case 3: {
-                    System.out.println("3");
+                    deleteTheSet();
                     break;
                 }
                 case 0: {
@@ -42,7 +42,9 @@ public class Menu {
             }
             try {
                 System.out.println("---------");
+                System.out.println();
                 System.out.println("按回车继续");
+                System.out.println();
                 new BufferedReader(new InputStreamReader(System.in)).readLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -50,19 +52,45 @@ public class Menu {
         }
 
     }
-    public void checkSameName(mySet newf){//检查集合名是否相同
-        boolean flag=true;
-        for (int i=0;i<f.size();i++){
-            if (Objects.equals(f.get(i).name, newf.name)){
-                flag=false;
+
+    //删除一个集合
+    public void deleteTheSet() {
+        showAllSet();
+        System.out.println("请输入要删除的集合名: ");
+        String name = in.next();
+        for (int i = 0; i < s.size(); i++) {
+            if (Objects.equals(name, s.get(i).name)) {
+                s.remove(i);
+                System.out.println("删除成功 ! ! !");
+                break;
             }
         }
-        if (flag)
-        {
-            f.add(newf);
-            System.out.println("创建成功 !");
+    }
+
+    //显示所有集合
+    public void showAllSet() {
+        if (s.size() == 0) {
+            System.out.println("当前没有集合");
+        } else {
+            System.out.println("当前集合数: " + s.size());
+            for (int i = 0; i < s.size(); i++) {
+                s.get(i).outTheSet();
+            }
         }
-        else {
+    }
+
+    //检查集合名是否相同
+    public void checkSameName(mySet newSet) {
+        boolean flag = true;
+        for (int i = 0; i < s.size(); i++) {
+            if (Objects.equals(s.get(i).name, newSet.name)) {
+                flag = false;
+            }
+        }
+        if (flag) {
+            s.add(newSet);
+            System.out.println("创建成功 !");
+        } else {
             System.out.println("集合名已重复 ! !");
         }
     }
