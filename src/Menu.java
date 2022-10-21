@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner in = new Scanner(System.in);
-    ArrayList<myFunction> f = new ArrayList<>();
+    ArrayList<mySet> f = new ArrayList<>();
     int number = 0;
 
     public void showMenu() {
@@ -28,8 +28,8 @@ public class Menu {
                     break;
                 }
                 case 2: {
-                    myFunction newf = new myFunction();
-                    checkSameName(newf);
+                    mySet newSet = new mySet();
+                    checkSameName(newSet);
                     break;
                 }
                 case 3: {
@@ -50,7 +50,7 @@ public class Menu {
         }
 
     }
-    public void checkSameName(myFunction newf){//检查集合名是否相同
+    public void checkSameName(mySet newf){//检查集合名是否相同
         boolean flag=true;
         for (int i=0;i<f.size();i++){
             if (Objects.equals(f.get(i).name, newf.name)){
