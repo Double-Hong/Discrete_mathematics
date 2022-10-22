@@ -47,7 +47,12 @@ public class mySet {
         System.out.print("<");
         for (int i = 0; i < set.size(); i++) {
             if (i != set.size() - 1) {
-                System.out.print(set.get(i).value);
+                if(!Objects.equals(set.get(i).value, "")){
+                    System.out.print(set.get(i).value);
+                }
+                else {
+                    System.out.print("空集");
+                }
                 System.out.print(",");
             } else {
                 System.out.print(set.get(i).value);

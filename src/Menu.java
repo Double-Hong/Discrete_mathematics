@@ -104,15 +104,20 @@ public class Menu {
 
     //删除一个集合
     public void deleteTheSet() {
+        boolean flag = false;
         showAllSet();
         System.out.println("请输入要删除的集合名: ");
         String name = in.next();
         for (int i = 0; i < s.size(); i++) {
             if (Objects.equals(name, s.get(i).name)) {
+                flag = true;
                 s.remove(i);
                 System.out.println("删除成功 ! ! !");
                 break;
             }
+        }
+        if (!flag){
+            System.out.println("没有集合"+name);
         }
     }
 
