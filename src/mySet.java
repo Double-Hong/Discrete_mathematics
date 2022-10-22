@@ -10,7 +10,7 @@ public class mySet {
     public mySet() {
         System.out.println("输入规则:");
         System.out.println("输入时先输入集合名(集合名需唯一),再输入元素");
-        System.out.println("每个元素用空格或者回车隔开,输入'>'结束");
+        System.out.println("每个元素用空车隔开,输入回车结束");
         System.out.println("输入集合名:");
         name = in.nextLine();
         System.out.println("输入元素:");
@@ -20,11 +20,11 @@ public class mySet {
             if (ele.charAt(i) == ' ') {
                 myElement e = new myElement(l);
                 set.add(e);
-                l="";
+                l = "";
             } else {
-                l=l+ele.charAt(i);
+                l = l + ele.charAt(i);
             }
-            if (i==ele.length()-1){
+            if (i == ele.length() - 1) {
                 myElement e = new myElement(l);
                 set.add(e);
             }

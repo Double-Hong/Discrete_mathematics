@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     ArrayList<mySet> s = new ArrayList<>();
+    ArrayList<relationship> r = new ArrayList<>();
     int number = 0;
 
     public Menu() {
@@ -20,6 +21,8 @@ public class Menu {
             System.out.println("1-----显示当前集合");
             System.out.println("2-----创建一个集合");
             System.out.println("3-----删除一个集合");
+            System.out.println("4-----构建关系");
+            System.out.println("5-----展示关系");
             System.out.println("0-----退出");
             int select = in.nextInt();
             switch (select) {
@@ -34,6 +37,23 @@ public class Menu {
                 }
                 case 3: {
                     deleteTheSet();
+                    break;
+                }
+                case 4: {
+                    System.out.println("4");
+                    showAllSet();
+                    createRelationship();
+                    break;
+                }
+                case 5: {
+                    if (r.size()==0){
+                        System.out.println("目前没有关系");
+                    }
+                    else {
+                        for (int i = 0; i < r.size(); i++) {
+                            r.get(i).showRelation();
+                        }
+                    }
                     break;
                 }
                 case 0: {
@@ -51,6 +71,35 @@ public class Menu {
             }
         }
 
+    }
+
+    //构建关系
+    public void createRelationship() {
+        System.out.println("请输入构建关系的两个集合,输入集合名即可: ");
+        String A, B;
+        A = in.next();
+        B = in.next();
+        if (findSetByName(A)==null||findSetByName(B)==null){
+            System.out.println("集合"+A+"或集合"+B+"不存在");
+            return;
+        }
+        mySet set1 = findSetByName(A);
+        mySet set2 = findSetByName(B);
+        set1.outTheSet();
+        set2.outTheSet();
+        relationship myRelation = new relationship(set1, set2, r.size() + 1);
+        myRelation.writeRelation();
+        r.add(myRelation);
+    }
+
+    //通过集合名字找集合
+    public mySet findSetByName(String name) {
+        for (int i = 0; i < s.size(); i++) {
+            if (Objects.equals(s.get(i).name, name)) {
+                return s.get(i);
+            }
+        }
+        return null;
     }
 
     //删除一个集合
