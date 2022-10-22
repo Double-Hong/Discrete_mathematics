@@ -23,6 +23,7 @@ public class Menu {
             System.out.println("3-----删除一个集合");
             System.out.println("4-----构建关系");
             System.out.println("5-----展示关系");
+            System.out.println("6-----判断关系是否为函数");
             System.out.println("0-----退出");
             int select = in.nextInt();
             switch (select) {
@@ -46,14 +47,17 @@ public class Menu {
                     break;
                 }
                 case 5: {
-                    if (r.size()==0){
+                    if (r.size() == 0) {
                         System.out.println("目前没有关系");
-                    }
-                    else {
+                    } else {
                         for (int i = 0; i < r.size(); i++) {
                             r.get(i).showRelation();
                         }
                     }
+                    break;
+                }
+                case 6: {
+                    System.out.println("6");
                     break;
                 }
                 case 0: {
@@ -73,14 +77,20 @@ public class Menu {
 
     }
 
+    //判断关系是否为函数
+    public boolean judgeItFunction(myRelationship r) {
+
+        return false;
+    }
+
     //构建关系
     public void createRelationship() {
         System.out.println("请输入构建关系的两个集合,输入集合名即可: ");
         String A, B;
         A = in.next();
         B = in.next();
-        if (findSetByName(A)==null||findSetByName(B)==null){
-            System.out.println("集合"+A+"或集合"+B+"不存在");
+        if (findSetByName(A) == null || findSetByName(B) == null) {
+            System.out.println("集合" + A + "或集合" + B + "不存在");
             return;
         }
         mySet set1 = findSetByName(A);
@@ -116,8 +126,8 @@ public class Menu {
                 break;
             }
         }
-        if (!flag){
-            System.out.println("没有集合"+name);
+        if (!flag) {
+            System.out.println("没有集合" + name);
         }
     }
 
