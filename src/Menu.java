@@ -9,6 +9,7 @@ public class Menu {
     Scanner in = new Scanner(System.in);
     ArrayList<mySet> s = new ArrayList<>();
     ArrayList<myRelationship> r = new ArrayList<>();
+    ArrayList<String> wrong = new ArrayList<>();
     int number = 0;
 
     public Menu() {
@@ -57,7 +58,28 @@ public class Menu {
                     break;
                 }
                 case 6: {
-                    System.out.println("6");
+                    System.out.println(r.size());
+                    if (r.size() == 0) {
+                        System.out.println("目前没有关系");
+                    } else {
+                        for (int i = 0; i < r.size(); i++) {
+                            r.get(i).showRelation();
+                        }
+                    }
+                    System.out.println("输入关系id以判断");
+                    int select2 = in.nextInt();
+                    if (findRelationshipById(select2) == null) {
+                        System.out.println("没有关系" + select2);
+                    } else {
+                        if (judgeItFunction(findRelationshipById(select2))) {
+                            System.out.println("是函数");
+                        } else {
+                            System.out.println("不是函数");
+                            for (int i = 0; i < wrong.size(); i++) {
+                                System.out.println(wrong.get(i));
+                            }
+                        }
+                    }
                     break;
                 }
                 case 0: {
@@ -77,10 +99,59 @@ public class Menu {
 
     }
 
+    //判断关系中的元素是否为两个集合中的元素
+    public boolean checkItElementRight(myRelationship r) {
+        boolean flag1 = false, flag2 = false;
+        for (int i = 0; i < r.relation.size() - 1; i = i + 2) {
+            for (int j = 0; j < r.set1.set.size(); j++) {
+                if (Objects.equals(r.relation.get(i).value, r.set1.set.get(j).value)) {
+                    flag1 = true;
+                    break;
+                }
+                if (j == r.set1.set.size() - 1) {
+                    String newWrong = "";
+                    flag1 = false;
+                    newWrong = r.relation.get(i).value + "不在集合" + r.set1.name + "中";
+                    wrong.add(newWrong);
+                    break;
+                }
+            }
+        }
+        for (int i = 1; i < r.relation.size(); i = i + 2) {
+            for (int j = 0; j < r.set2.set.size(); j++) {
+                if (Objects.equals(r.relation.get(i).value, r.set2.set.get(j).value)) {
+                    flag2 = true;
+                    break;
+                }
+                if (j == r.set2.set.size() - 1) {
+                    String newWrong = "";
+                    flag2 = false;
+                    newWrong = r.relation.get(i).value + "不在集合" + r.set2.name + "中";
+                    wrong.add(newWrong);
+                    break;
+                }
+            }
+        }
+        return (flag1 && flag2);
+    }
+
     //判断关系是否为函数
     public boolean judgeItFunction(myRelationship r) {
+        if (checkItElementRight(r)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        return false;
+    //通过id找关系
+    public myRelationship findRelationshipById(int id) {
+        for (int i = 0; i < r.size(); i++) {
+            if (r.get(i).id == id) {
+                return r.get(i);
+            }
+        }
+        return null;
     }
 
     //构建关系
@@ -149,6 +220,7 @@ public class Menu {
         for (int i = 0; i < s.size(); i++) {
             if (Objects.equals(s.get(i).name, newSet.name)) {
                 flag = false;
+                break;
             }
         }
         if (flag) {
