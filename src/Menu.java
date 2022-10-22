@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     ArrayList<mySet> s = new ArrayList<>();
-    ArrayList<relationship> r = new ArrayList<>();
+    ArrayList<myRelationship> r = new ArrayList<>();
     int number = 0;
 
     public Menu() {
@@ -87,7 +87,7 @@ public class Menu {
         mySet set2 = findSetByName(B);
         set1.outTheSet();
         set2.outTheSet();
-        relationship myRelation = new relationship(set1, set2, r.size() + 1);
+        myRelationship myRelation = new myRelationship(set1, set2, r.size() + 1);
         myRelation.writeRelation();
         r.add(myRelation);
     }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class relationship {
+public class myRelationship {
 
     int id;
     mySet set1;
@@ -10,11 +10,11 @@ public class relationship {
 
     Scanner in = new Scanner(System.in);
 
-    public relationship() {
+    public myRelationship() {
 
     }
 
-    public relationship(mySet set1, mySet set2, int id) {
+    public myRelationship(mySet set1, mySet set2, int id) {
         this.set1 = set1;
         this.set2 = set2;
         this.id = id;
