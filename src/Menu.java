@@ -9,7 +9,7 @@ public class Menu {
     Scanner in = new Scanner(System.in);
     ArrayList<mySet> s = new ArrayList<>();
     ArrayList<myRelationship> r = new ArrayList<>();
-    ArrayList<String> wrong = new ArrayList<>();
+    static ArrayList<String> wrong = new ArrayList<>();
     int number = 0;
 
     public Menu() {
@@ -68,22 +68,33 @@ public class Menu {
                     }
                     System.out.println("输入关系id以判断");
                     int select2 = in.nextInt();
-                    if (findRelationshipById(select2) == null) {
+                    myRelationship newRelation = findRelationshipById(select2);
+                    newRelation.set1.outTheSet();
+                    newRelation.set2.outTheSet();
+                    newRelation.showRelation();
+                    System.out.println();
+                    if (newRelation == null) {
                         System.out.println("没有关系" + select2);
                     } else {
-                        if (judgeItFunction(findRelationshipById(select2))) {
-                            System.out.println("是函数");
+                        if (judgeItFunction(newRelation)) {
+                            System.out.println("关系" + newRelation.id + "可以构成函数");
                         } else {
-                            System.out.println("不是函数");
+                            System.out.println("关系" + newRelation.id + "不能构成函数");
+                            System.out.println("问题: ");
                             for (int i = 0; i < wrong.size(); i++) {
                                 System.out.println(wrong.get(i));
                             }
                         }
                     }
+                    wrong.clear();
                     break;
                 }
                 case 0: {
                     return;
+                }
+                default: {
+                    System.out.println("请重新熟入");
+                    break;
                 }
             }
             try {
@@ -97,6 +108,33 @@ public class Menu {
             }
         }
 
+    }
+
+    //判断x的值是否全部取完且只对应一个Y
+    public boolean checkItAllAndAlone(myRelationship r) {
+        int flag = 0;
+        int flag2 = 1;
+        boolean flag3;
+        for (int i = 0; i < r.set1.set.size(); i++) {
+            for (int j = 0; j < r.relation.size() - 1; j = j + 2) {
+                if (Objects.equals(r.set1.set.get(i).value, r.relation.get(j).value)) {
+                    flag++;
+                }
+            }
+            if (flag == 0) {
+                String newwrong = "";
+                newwrong = r.set1.set.get(i).value + "在定义域中却未使用";
+                wrong.add(newwrong);
+                flag2 = 0;
+            }
+            flag = 0;
+        }
+        flag3 = r.checkXAlone();
+        if (flag2 == 0 || !flag3) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //判断关系中的元素是否为两个集合中的元素
@@ -137,7 +175,7 @@ public class Menu {
 
     //判断关系是否为函数
     public boolean judgeItFunction(myRelationship r) {
-        if (checkItElementRight(r)) {
+        if (checkItElementRight(r) && checkItAllAndAlone(r)) {
             return true;
         } else {
             return false;

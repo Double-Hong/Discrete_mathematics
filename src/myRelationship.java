@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class myRelationship {
@@ -12,6 +13,21 @@ public class myRelationship {
 
     public myRelationship() {
 
+    }
+
+    //检查X是否唯一
+    boolean checkXAlone() {
+        for (int i = 2; i < relation.size() - 1; i = i + 2) {
+            for (int j = 0; j < i; j = j + 2) {
+                if (Objects.equals(relation.get(i).value, relation.get(j).value)) {
+                    String newWrong = "";
+                    newWrong = relation.get(i).value + "对应多个值";
+                    Menu.wrong.add(newWrong);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public myRelationship(mySet set1, mySet set2, int id) {
@@ -40,16 +56,16 @@ public class myRelationship {
 
     //展示关系
     public void showRelation() {
-        System.out.println("关系" + id);
+        System.out.print("关系" + id + ": ");
         System.out.println("集合" + set1.name + "与集合" + set2.name + "的关系");
-        System.out.print("< ");
+        System.out.print("{ ");
         for (int i = 0; i <= relation.size() - 2; i = i + 2) {
             System.out.print("<" + relation.get(i).value + "," + relation.get(i + 1).value + ">");
             if (i != relation.size() - 2) {
                 System.out.print(",");
             }
         }
-        System.out.print(" >");
+        System.out.print(" }");
         System.out.println();
     }
 }
