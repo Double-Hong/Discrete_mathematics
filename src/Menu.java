@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     ArrayList<mySet> s = new ArrayList<>();
-    ArrayList<myRelationship> r = new ArrayList<>();
+    ArrayList<myRelationship> relations = new ArrayList<>();
     static ArrayList<String> wrong = new ArrayList<>();
     int number = 0;
 
@@ -25,6 +25,7 @@ public class Menu {
             System.out.println("4-----构建关系");
             System.out.println("5-----展示关系");
             System.out.println("6-----判断关系是否为函数");
+            System.out.println("7-----判断关系类型");
             System.out.println("0-----退出");
             int select = in.nextInt();
             switch (select) {
@@ -42,28 +43,27 @@ public class Menu {
                     break;
                 }
                 case 4: {
-                    System.out.println("4");
                     showAllSet();
                     createRelationship();
                     break;
                 }
                 case 5: {
-                    if (r.size() == 0) {
+                    if (relations.size() == 0) {
                         System.out.println("目前没有关系");
                     } else {
-                        for (int i = 0; i < r.size(); i++) {
-                            r.get(i).showRelation();
+                        for (int i = 0; i < relations.size(); i++) {
+                            relations.get(i).showRelation();
                         }
                     }
                     break;
                 }
                 case 6: {
-                    System.out.println(r.size());
-                    if (r.size() == 0) {
+                    System.out.println(relations.size());
+                    if (relations.size() == 0) {
                         System.out.println("目前没有关系");
                     } else {
-                        for (int i = 0; i < r.size(); i++) {
-                            r.get(i).showRelation();
+                        for (int i = 0; i < relations.size(); i++) {
+                            relations.get(i).showRelation();
                         }
                     }
                     System.out.println("输入关系id以判断");
@@ -89,6 +89,26 @@ public class Menu {
                     wrong.clear();
                     break;
                 }
+                case 7:{
+                    if (relations.size() == 0) {
+                        System.out.println("目前没有关系");
+                    } else {
+                        for (int i = 0; i < relations.size(); i++) {
+                            relations.get(i).showRelation();
+                        }
+                    }
+                    System.out.println("输入关系id以判断关系的类型");
+                    int select2 = in.nextInt();
+                    myRelationship newRelation = findRelationshipById(select2);
+                    newRelation.set1.outTheSet();
+                    newRelation.set2.outTheSet();
+                    newRelation.showRelation();
+                    if (checkRelationInjective(newRelation)){
+                        System.out.println("关系"+newRelation.id+"是入射");
+                    }
+                    System.out.println("ok");
+                    break;
+                }
                 case 0: {
                     return;
                 }
@@ -108,6 +128,23 @@ public class Menu {
             }
         }
 
+    }
+    //判断是否为入射
+    public boolean checkRelationInjective(myRelationship r){
+        if (judgeItFunction(r)){
+            for (int i =3;i<r.relation.size();i=i+2){
+                for (int j=1;j<i;j++){
+                    if (Objects.equals(r.relation.get(i).value,r.relation.get(j).value)){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else {
+            System.out.println(r.id+"不是函数");
+            return false;
+        }
     }
 
     //判断x的值是否全部取完且只对应一个Y
@@ -184,9 +221,9 @@ public class Menu {
 
     //通过id找关系
     public myRelationship findRelationshipById(int id) {
-        for (int i = 0; i < r.size(); i++) {
-            if (r.get(i).id == id) {
-                return r.get(i);
+        for (int i = 0; i < relations.size(); i++) {
+            if (relations.get(i).id == id) {
+                return relations.get(i);
             }
         }
         return null;
@@ -206,9 +243,9 @@ public class Menu {
         mySet set2 = findSetByName(B);
         set1.outTheSet();
         set2.outTheSet();
-        myRelationship myRelation = new myRelationship(set1, set2, r.size() + 1);
+        myRelationship myRelation = new myRelationship(set1, set2, relations.size() + 1);
         myRelation.writeRelation();
-        r.add(myRelation);
+        relations.add(myRelation);
     }
 
     //通过集合名字找集合
