@@ -89,7 +89,7 @@ public class Menu {
                     wrong.clear();
                     break;
                 }
-                case 7:{
+                case 7: {
                     if (relations.size() == 0) {
                         System.out.println("目前没有关系");
                     } else {
@@ -103,10 +103,20 @@ public class Menu {
                     newRelation.set1.outTheSet();
                     newRelation.set2.outTheSet();
                     newRelation.showRelation();
-                    if (checkRelationInjective(newRelation)){
-                        System.out.println("关系"+newRelation.id+"是入射");
+                    boolean flag1;//入射
+                    boolean flag2;//满射
+                    flag1 = checkRelationInjective(newRelation);
+                    flag2 = checkRelationSurjective(newRelation);
+                    if (flag1 && flag2) {
+                        System.out.println("关系" + newRelation.id + "是双射");
+                    } else if (flag1) {
+                        System.out.println("关系" + newRelation.id + "是入射");
+                    } else if (flag2) {
+                        System.out.println("关系" + newRelation.id + "是满射");
                     }
-                    System.out.println("ok");
+                    else {
+                        System.out.println("关系"+newRelation.id+"既不是入射也不是满射");
+                    }
                     break;
                 }
                 case 0: {
@@ -129,20 +139,39 @@ public class Menu {
         }
 
     }
+
+    //判断是否为满射
+    public boolean checkRelationSurjective(myRelationship r) {
+        int flag = 0;
+        boolean flag2 = true;
+        for (int i = 0; i < r.set2.set.size(); i++) {
+            for (int j = 1; j < r.relation.size(); j = j + 2) {
+                if (Objects.equals(r.set2.set.get(i).value, r.relation.get(j).value)) {
+                    flag++;
+                    break;
+                }
+            }
+            if (flag == 0) {
+                flag2 = false;
+            }
+            flag = 0;
+        }
+        return flag2;
+    }
+
     //判断是否为入射
-    public boolean checkRelationInjective(myRelationship r){
-        if (judgeItFunction(r)){
-            for (int i =3;i<r.relation.size();i=i+2){
-                for (int j=1;j<i;j++){
-                    if (Objects.equals(r.relation.get(i).value,r.relation.get(j).value)){
+    public boolean checkRelationInjective(myRelationship r) {
+        if (judgeItFunction(r)) {
+            for (int i = 3; i < r.relation.size(); i = i + 2) {
+                for (int j = 1; j < i; j=j+2) {
+                    if (Objects.equals(r.relation.get(i).value, r.relation.get(j).value)) {
                         return false;
                     }
                 }
             }
             return true;
-        }
-        else {
-            System.out.println(r.id+"不是函数");
+        } else {
+            System.out.println(r.id + "不是函数");
             return false;
         }
     }
