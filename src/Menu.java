@@ -27,27 +27,27 @@ public class Menu {
             System.out.println("6-----判断关系是否为函数");
             System.out.println("7-----判断关系类型");
             System.out.println("0-----退出");
-            int select = in.nextInt();
+            String select = in.next();
             switch (select) {
-                case 1: {
+                case "1": {
                     showAllSet();
                     break;
                 }
-                case 2: {
+                case "2": {
                     mySet newSet = new mySet();
                     checkSameName(newSet);
                     break;
                 }
-                case 3: {
+                case "3": {
                     deleteTheSet();
                     break;
                 }
-                case 4: {
+                case "4": {
                     showAllSet();
                     createRelationship();
                     break;
                 }
-                case 5: {
+                case "5": {
                     if (relations.size() == 0) {
                         System.out.println("目前没有关系");
                     } else {
@@ -57,7 +57,7 @@ public class Menu {
                     }
                     break;
                 }
-                case 6: {
+                case "6": {
                     System.out.println(relations.size());
                     if (relations.size() == 0) {
                         System.out.println("目前没有关系");
@@ -89,7 +89,7 @@ public class Menu {
                     wrong.clear();
                     break;
                 }
-                case 7: {
+                case "7": {
                     if (relations.size() == 0) {
                         System.out.println("目前没有关系");
                     } else {
@@ -119,11 +119,11 @@ public class Menu {
                     }
                     break;
                 }
-                case 0: {
+                case "0": {
                     return;
                 }
                 default: {
-                    System.out.println("请重新熟入");
+                    System.out.println("请重新输入");
                     break;
                 }
             }
