@@ -103,19 +103,22 @@ public class Menu {
                     newRelation.set1.outTheSet();
                     newRelation.set2.outTheSet();
                     newRelation.showRelation();
-                    boolean flag1;//入射
-                    boolean flag2;//满射
-                    flag1 = checkRelationInjective(newRelation);
-                    flag2 = checkRelationSurjective(newRelation);
-                    if (flag1 && flag2) {
-                        System.out.println("关系" + newRelation.id + "是双射");
-                    } else if (flag1) {
-                        System.out.println("关系" + newRelation.id + "是入射");
-                    } else if (flag2) {
-                        System.out.println("关系" + newRelation.id + "是满射");
-                    }
-                    else {
-                        System.out.println("关系"+newRelation.id+"既不是入射也不是满射");
+                    if (judgeItFunction(newRelation)) {
+                        boolean flag1;//入射
+                        boolean flag2;//满射
+                        flag1 = checkRelationInjective(newRelation);
+                        flag2 = checkRelationSurjective(newRelation);
+                        if (flag1 && flag2) {
+                            System.out.println("关系" + newRelation.id + "是双射");
+                        } else if (flag1) {
+                            System.out.println("关系" + newRelation.id + "是入射");
+                        } else if (flag2) {
+                            System.out.println("关系" + newRelation.id + "是满射");
+                        } else {
+                            System.out.println("关系" + newRelation.id + "既不是入射也不是满射");
+                        }
+                    } else {
+                        System.out.println("关系"+select2 + "不是函数");
                     }
                     break;
                 }
@@ -161,19 +164,14 @@ public class Menu {
 
     //判断是否为入射
     public boolean checkRelationInjective(myRelationship r) {
-        if (judgeItFunction(r)) {
-            for (int i = 3; i < r.relation.size(); i = i + 2) {
-                for (int j = 1; j < i; j=j+2) {
-                    if (Objects.equals(r.relation.get(i).value, r.relation.get(j).value)) {
-                        return false;
-                    }
+        for (int i = 3; i < r.relation.size(); i = i + 2) {
+            for (int j = 1; j < i; j = j + 2) {
+                if (Objects.equals(r.relation.get(i).value, r.relation.get(j).value)) {
+                    return false;
                 }
             }
-            return true;
-        } else {
-            System.out.println(r.id + "不是函数");
-            return false;
         }
+        return true;
     }
 
     //判断x的值是否全部取完且只对应一个Y

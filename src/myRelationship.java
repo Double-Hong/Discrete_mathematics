@@ -38,8 +38,11 @@ public class myRelationship {
 
     //写入关系
     public void writeRelation() {
-        System.out.println("输入关系格式: ");
         System.out.println("每个关系两端要用'<'和'>'关系之间用空格隔开,输入回车结束");
+        System.out.println("输入示例:");
+        System.out.println("<a,2> <b,3> <c,4>");
+        System.out.println();
+        System.out.println("输入关系格式: ");
         String rel = in.nextLine();
         StringBuilder l = new StringBuilder();
         for (int i = 0; i < rel.length(); i++) {
